@@ -5,6 +5,7 @@
 package tienda.vistas;
 
 import com.mysql.jdbc.Connection;
+import java.sql.PreparedStatement;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import tienda.conexionBD.conexion;
@@ -198,7 +199,7 @@ public class crearProducto extends javax.swing.JFrame {
         String costo = txtCosto.getText();
         String existencia = txtCantidad.getText();
         float procentaje = 0;
-        Date fechaEntrada;
+        Date fechaEntrada = new Date();
         Date horaEntrada;
         Date fechaSalida;
         Date horaSalida;
@@ -208,6 +209,19 @@ public class crearProducto extends javax.swing.JFrame {
             conexion conexion = new conexion();
             conexion.conectar();
             
+            String query = " INSERT INTO tienda.productos\n" +
+                            " ( ID_Familia_Producto, Codigo_producto, Descripcion_Producto, Presentacion_producto, Existencias_en_unidades, Porcentaje_ganancia, Ultimo_costo, Fecha_de_última_entrada, Hora_de_última_entrada, Fecha_de_ultima_salida, Hora_de_ultima_salida, estado) \n" +
+                            " VALUES( ?,?, ?,?, ?,?, ?,?, ?, ?, ?, ?) ";
+             PreparedStatement statement;
+             statement = conexion.conectar().prepareStatement (query);
+             statement.setString(1,codigoFamilia);
+             statement.setString(2,codigo);
+             statement.setString(3,descripcion);
+             statement.setString(4,presentacion);
+             statement.setInt( 5, Integer.parseInt(existencia));
+             statement.setFloat(6, procentaje);
+             statement.setFloat(7, Float.parseFloat(costo)  );
+             //statement.setDate(8, fechaEntrada);
             
          }catch(Exception error){
             JOptionPane.showMessageDialog(null,error);
