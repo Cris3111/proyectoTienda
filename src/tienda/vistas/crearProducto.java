@@ -222,6 +222,7 @@ public class crearProducto extends javax.swing.JFrame {
              statement.setFloat(6, procentaje);
              statement.setFloat(7, Float.parseFloat(costo)  );
              //statement.setDate(8, fechaEntrada);
+             System.out.println("mensaje de error");
             
          }catch(Exception error){
             JOptionPane.showMessageDialog(null,error);
