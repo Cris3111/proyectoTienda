@@ -6,9 +6,18 @@ package tienda.vistas;
 
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import tienda.conexionBD.conexion;
+import java.sql.Time;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
 
 /**
  *
@@ -21,6 +30,7 @@ public class crearProducto extends javax.swing.JFrame {
      */
     public crearProducto() {
         initComponents();
+        this.getListaFamiliaProducto();
     }
 
     /**
@@ -41,11 +51,11 @@ public class crearProducto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtFamilia = new javax.swing.JTextField();
         Agregar = new javax.swing.JButton();
         Agregar1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtCosto = new javax.swing.JTextField();
+        ComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +73,7 @@ public class crearProducto extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Descripacion producto:");
+        jLabel2.setText("Descripcion producto:");
 
         txtPresentacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,12 +93,6 @@ public class crearProducto extends javax.swing.JFrame {
 
         jLabel5.setText("codigo familia ");
 
-        txtFamilia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFamiliaActionPerformed(evt);
-            }
-        });
-
         Agregar.setText("Agregar");
         Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +101,11 @@ public class crearProducto extends javax.swing.JFrame {
         });
 
         Agregar1.setText("Cancelar");
+        Agregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Agregar1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Costo");
 
@@ -106,12 +115,19 @@ public class crearProducto extends javax.swing.JFrame {
             }
         });
 
+        ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -122,15 +138,15 @@ public class crearProducto extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addComponent(jLabel6))
                 .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Agregar)
-                    .addComponent(txtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(txtPresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +170,7 @@ public class crearProducto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -185,24 +201,38 @@ public class crearProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
 
-    private void txtFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFamiliaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFamiliaActionPerformed
-
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
         String codigo = txtCodigo.getText();
         String descripcion = txtDescripcion.getText();
         String presentacion = txtPresentacion.getText();
-        String codigoFamilia = txtFamilia.getText();
+        String codigoFamilia = ComboBox.getSelectedItem().toString();
+                
+        System.out.println("FAMILIA SELECCIONADA: "+ codigoFamilia  );
+         Pattern patron = Pattern.compile("\\d+"); // Encuentra uno o más dígitos
+
+        // Crear un objeto Matcher
+        Matcher matcher = patron.matcher(codigoFamilia);
+            String numeroExtraido = "";
+        if (matcher.find()) {
+            numeroExtraido = matcher.group();
+            System.out.println("Número extraido: " + numeroExtraido);
+        } else {
+            System.out.println("Número no encontrado en la cadena.");
+        }
         String estado = "A";
         String costo = txtCosto.getText();
         String existencia = txtCantidad.getText();
-        float procentaje = 0;
-        Date fechaEntrada = new Date();
-        Date horaEntrada;
-        Date fechaSalida;
-        Date horaSalida;
+        float porcentaje = 0;
+        //Date fechaEntrada = new Date();
+        Date fechaEntrada = new java.util.Date(); // Crear una java.util.Date
+// Convertir java.util.Date a java.sql.Date
+        java.sql.Date sqlFechaEntrada = new java.sql.Date(fechaEntrada.getTime());
+        
+        Time horaEntrada = Time.valueOf("00:00:00");
+        Date fechaSalida = new java.util.Date();
+         java.sql.Date sqlFechaSalida = new java.sql.Date(fechaSalida.getTime());
+        Time horaSalida = Time.valueOf("00:00:00");
         
          try{
              //creo la conexion
@@ -214,28 +244,82 @@ public class crearProducto extends javax.swing.JFrame {
                             " VALUES( ?,?, ?,?, ?,?, ?,?, ?, ?, ?, ?) ";
              PreparedStatement statement;
              statement = conexion.conectar().prepareStatement (query);
-             statement.setString(1,codigoFamilia);
+             statement.setString(1,numeroExtraido);
              statement.setString(2,codigo);
              statement.setString(3,descripcion);
              statement.setString(4,presentacion);
              statement.setInt( 5, Integer.parseInt(existencia));
-             statement.setFloat(6, procentaje);
+             statement.setFloat(6, porcentaje);
              statement.setFloat(7, Float.parseFloat(costo)  );
-             //statement.setDate(8, fechaEntrada);
-             System.out.println("mensaje de error");
+             statement.setDate(8, sqlFechaEntrada);
+             statement.setTime(9,horaEntrada);
+             statement.setDate(10, sqlFechaSalida);
+             statement.setTime(11, horaSalida);
+             statement.setString(12, estado);
+             //System.out.println("mensaje de error");
+              int res = statement.executeUpdate();
+             if(res>0){ 
+                 this.limpiarDatos();
+                JOptionPane.showMessageDialog(null, "Carga Satisfactoria");
+            }else{
+                 this.limpiarDatos();
+                JOptionPane.showMessageDialog(null, "ERROR AL GUARDAR LA INFORMACION");
+            }
             
          }catch(Exception error){
             JOptionPane.showMessageDialog(null,error);
          }
          
         
-        
-        
     }//GEN-LAST:event_AgregarActionPerformed
 
+   public void getListaFamiliaProducto(){
+       String query = "select fp.ID_Familia_Producto as id, fp.Descripción_Familia as familia  from tienda.familia_productos fp";
+        try{
+             //creo la conexion
+            conexion conexion = new conexion();
+            //conexion.conectar();
+            PreparedStatement statement;
+             statement= conexion.conectar().prepareStatement (query);
+           
+            ResultSet consulta = statement.executeQuery();
+            //DataTable dataTable = new DataTable();
+            Vector<String> datos = new Vector<>();
+            //JComboBox<String> comboBox = new JComboBox<>(datos);
+            while(consulta.next()){
+                    consulta.getInt("id");
+                    consulta.getString("familia");
+                 datos.add(consulta.getInt("id")+"-"+consulta.getString("familia"));
+            }
+            ComboBox.setModel(new DefaultComboBoxModel<>(datos));
+       }catch(Exception error){
+            JOptionPane.showMessageDialog(null,error);
+         }
+       
+   }
+   
+   public void limpiarDatos(){
+        txtCodigo.setText(""); 
+        txtDescripcion.setText("");
+        txtPresentacion.setText("");
+        txtCosto.setText("");
+        txtCantidad.setText("");
+   }
+   
     private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCostoActionPerformed
+
+    private void ComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxItemStateChanged
+
+    private void Agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar1ActionPerformed
+        // TODO add your handling code here:
+        //CrearProductos CrearProductos = new CrearProductos();
+        //crearProducto crearProducto = new crearProducto();
+        this.limpiarDatos();
+    }//GEN-LAST:event_Agregar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,6 +359,7 @@ public class crearProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Agregar1;
+    private javax.swing.JComboBox<String> ComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -285,7 +370,6 @@ public class crearProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtFamilia;
     private javax.swing.JTextField txtPresentacion;
     // End of variables declaration//GEN-END:variables
 }

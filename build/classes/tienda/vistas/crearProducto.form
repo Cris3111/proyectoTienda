@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace pref="82" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -37,16 +37,16 @@
                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="Agregar" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFamilia" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Component id="txtCantidad" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Component id="txtPresentacion" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Component id="txtCodigo" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Component id="txtDescripcion" min="-2" pref="140" max="-2" attributes="0"/>
-                  <Component id="txtCosto" min="-2" pref="140" max="-2" attributes="0"/>
+                  <Component id="txtCantidad" pref="140" max="32767" attributes="0"/>
+                  <Component id="txtPresentacion" pref="140" max="32767" attributes="0"/>
+                  <Component id="txtCodigo" pref="140" max="32767" attributes="0"/>
+                  <Component id="txtDescripcion" pref="140" max="32767" attributes="0"/>
+                  <Component id="txtCosto" pref="140" max="32767" attributes="0"/>
+                  <Component id="ComboBox" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,7 +76,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFamilia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -111,7 +111,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Descripacion producto:"/>
+        <Property name="text" type="java.lang.String" value="Descripcion producto:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPresentacion">
@@ -139,11 +139,6 @@
         <Property name="text" type="java.lang.String" value="codigo familia "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtFamilia">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFamiliaActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="Agregar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar"/>
@@ -156,6 +151,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Agregar1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -166,6 +164,24 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCostoActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="ComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ComboBoxItemStateChanged"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

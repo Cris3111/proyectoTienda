@@ -27,7 +27,7 @@ public class conexion {
         try{ 
         Class.forName("com.mysql.jdbc.Driver");
         conexion = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-       JOptionPane.showMessageDialog(null,"Conexion exitosa!!");
+       //JOptionPane.showMessageDialog(null,"Conexion exitosa!!");
         return conexion;
             }catch(Exception e){
             JOptionPane.showMessageDialog(null," Error : " +e);

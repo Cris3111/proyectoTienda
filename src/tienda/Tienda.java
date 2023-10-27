@@ -4,6 +4,8 @@
  */
 package tienda;
 
+import tienda.vistas.ingresarProducto;
+import tienda.vistas.movimientos;
 import tienda.vistas.panel;
 
 /**
@@ -17,8 +19,15 @@ public class Tienda {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        panel panel = new panel();
-        panel.setVisible(true);
+        //panel panel = new panel();
+        //panel.setVisible(true);
+        
+        //ingresarProducto ingresarProducto = new ingresarProducto();
+        //ingresarProducto.setVisible(true);
+        
+        movimientos movimientos = new movimientos();
+        movimientos.setVisible(true);
+        
     }
     
 }
